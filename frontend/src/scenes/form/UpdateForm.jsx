@@ -26,25 +26,21 @@ const UpdateForm = () => {
     const [registrarId, setRegistrarid] = useState(data.registrarId);
     const [cost, setCost] = useState(data.cost);
 
-    // const handleFormSubmit = (values) => {
-    //   console.log(values);
-    // };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = { name, email, age, phone, city, address, access, date, zipCode, registrarId, cost };
 
         try {
-            const response = await axios.post(`${baseURL}/post`, formData);
+            const response = await axios.put(`${baseURL}/update/${data._id}`, formData);
 
             if (response.ok) {
-                console.log('User data saved');
+                console.log('User data Updated');
             } else {
-                console.error('Error saving user data');
+                console.error('Error Updating user data');
             }
         } catch (error) {
-            console.error('Error saving user data:', error.response);
+            console.error('Error Updating user data:', error.response);
         }
     };
 
