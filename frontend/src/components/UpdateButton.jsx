@@ -2,12 +2,15 @@ import React from 'react'
 import { useTheme, Button, Typography, Box } from "@mui/material";
 import { tokens } from "../theme";
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
+import { useNavigate } from 'react-router-dom';
 
-const UpdateButton = ({ user }) => {
+const UpdateButton = ({ id, data }) => {
     const theme = useTheme();
     const colors = tokens(theme.palette.mode);
+    const navigate = useNavigate()
     const handleUpdate = () => {
-        console.log(user);
+        console.log(id, data);
+        navigate(`/updateform/${id}`, { state: { data } })
     }
     return (
         <Box>

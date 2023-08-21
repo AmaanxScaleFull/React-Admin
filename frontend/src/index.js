@@ -16,6 +16,7 @@ import Geography from "./scenes/geography";
 import Calendar from "./scenes/calendar/calendar";
 import Login from "./scenes/login";
 import SignUp from "./scenes/signup";
+import UpdateForm from "./scenes/form/UpdateForm";
 
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -32,6 +33,7 @@ root.render(
           <Route path="/contacts" element={<Contacts />} />
           <Route path="/invoices" element={<Invoices />} />
           <Route path="/form" element={<Form />} />
+          <Route path="/updateform/:id" element={<UpdateForm />} />
           <Route path="/bar" element={<Bar />} />
           <Route path="/pie" element={<Pie />} />
           <Route path="/line" element={<Line />} />

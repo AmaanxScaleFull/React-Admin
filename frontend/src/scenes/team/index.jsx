@@ -99,7 +99,7 @@ const Team = () => {
       renderCell: ({ row }) => (
         <Box
           display="flex">
-          <UpdateButton user={get_user} />
+          <UpdateButton id={row._id} data={row} />
           <DeleteButton id={row._id} />
         </Box>
 
