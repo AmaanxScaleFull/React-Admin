@@ -1,14 +1,34 @@
 import { Box, Typography, useTheme } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataInvoices } from "../../data/mockData";
+// import { mockDataInvoices } from "../../data/mockData";
 import Header from "../../components/Header";
+import { useEffect, useState } from "react";
+import { baseURL } from "../util/constants";
+import axios from "axios"
 
 const Invoices = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [get_user, setget_user] = useState([])
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      axios.get(`${baseURL}/get`).then((res) => {
+        console.log(res.data)
+        setget_user(res.data)
+      })
+    }
+    catch (error) {
+      console.log("Error Fetching Data")
+    }
+  }
   const columns = [
-    { field: "id", headerName: "ID" },
+    // { field: "id", headerName: "ID" },
     {
       field: "name",
       headerName: "Name",
@@ -74,7 +94,7 @@ const Invoices = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataInvoices} columns={columns} />
+        <DataGrid checkboxSelection rows={get_user} columns={columns} getRowId={(row) => row._id} />
       </Box>
     </Box>
   );

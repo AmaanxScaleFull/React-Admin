@@ -1,16 +1,36 @@
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
-import { mockDataContacts } from "../../data/mockData";
+// import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
 import { useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
+import { baseURL } from "../util/constants";
+import axios from "axios"
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [get_user, setget_user] = useState([])
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    try {
+      axios.get(`${baseURL}/get`).then((res) => {
+        console.log(res.data)
+        setget_user(res.data)
+      })
+    }
+    catch (error) {
+      console.log("Error Fetching Data")
+    }
+  }
 
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
+    // { field: "id", headerName: "ID", flex: 0.5 },
     { field: "registrarId", headerName: "Registrar ID" },
     {
       field: "name",
@@ -91,9 +111,10 @@ const Contacts = () => {
         }}
       >
         <DataGrid
-          rows={mockDataContacts}
+          rows={get_user}
           columns={columns}
           components={{ Toolbar: GridToolbar }}
+          getRowId={(row) => row._id}
         />
       </Box>
     </Box>

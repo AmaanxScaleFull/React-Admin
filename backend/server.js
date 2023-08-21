@@ -1,24 +1,24 @@
-const express = require("express");
-const mongoose = require("mongoose");
-require("dotenv").config();
-const routes = require("./routes/routes")
+const express = require('express');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const routes = require('./routes/routes');
+const URI = 'mongodb+srv://Admin:Admin123@cluster0.wfzjirg.mongodb.net/CRUD_DB?'
 
-const cors = require("cors");
+const app = express();
+const PORT = process.env.PORT || 2000;
 
-const PORT = process.env.PORT || 2000
-const app = express()
-
-app.use(express.json());
-app.use(cors());
 
 mongoose
-    .connect(process.env.MONGO_URI)
+    .connect(URI, { useNewUrlParser: true, useUnifiedTopology: true, })
     .then(() => console.log("MongoDB Connected..."))
     .catch((err) => console.log(err));
 
+app.use(bodyParser.json());
+app.use(cors());
 
-app.use(routes)
+app.use('/', routes);
 
 app.listen(PORT, () => {
-    console.log(`server started at ${PORT}`)
-})
+    console.log(`Server is running on port ${PORT}`);
+});

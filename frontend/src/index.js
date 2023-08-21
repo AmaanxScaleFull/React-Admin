@@ -17,11 +17,13 @@ import Calendar from "./scenes/calendar/calendar";
 import Login from "./scenes/login";
 import SignUp from "./scenes/signup";
 
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
+
         <Route path="/" element={<Login />} />
         <Route path="/" element={<App />}>
           <Route path="/admin" element={<Dashboard />} />
@@ -38,7 +40,6 @@ root.render(
           <Route path="/geography" element={<Geography />} />
         </Route>
       </Routes>
-      {/* <App /> */}
     </BrowserRouter>
   </React.StrictMode>
 );
