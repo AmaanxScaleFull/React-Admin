@@ -22,6 +22,7 @@ const Form = () => {
   const [zipCode, setZipcode] = useState('');
   const [registrarId, setRegistrarid] = useState('');
   const [cost, setCost] = useState('');
+  const [password, setPassword] = useState('');
 
   // const handleFormSubmit = (values) => {
   //   console.log(values);
@@ -30,7 +31,7 @@ const Form = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = { name, email, age, phone, city, address, access, date, zipCode, registrarId, cost };
+    const formData = { name, email, age, phone, city, address, access, date, zipCode, registrarId, cost, password };
 
     try {
       const response = await axios.post(`${baseURL}/post`, formData);
@@ -171,6 +172,16 @@ const Form = () => {
             onChange={(e) => setAccess(e.target.value)}
             value={access}
             name="access"
+            sx={{ gridColumn: "span 1" }}
+          />
+          <TextField
+            fullWidth
+            variant="filled"
+            type="text"
+            label="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            value={password}
+            name="password"
             sx={{ gridColumn: "span 1" }}
           />
         </Box>

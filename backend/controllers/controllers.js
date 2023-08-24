@@ -1,4 +1,5 @@
 const User = require('../models/models');
+const bcrypt = require('bcrypt')
 
 // Create a new user
 exports.createUser = async (req, res) => {
@@ -68,6 +69,29 @@ exports.deleteUser = async (req, res) => {
         res.status(500).json({ error: 'Failed to delete user' });
     }
 };
+
+
+exports.checkCredentials = async (req, res) => {
+    const { email, password } = req.body;
+    // console.log(email, password);
+
+    try {
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(401).json({ message: 'User not found' });
+        }
+
+        if (user.password !== password) {
+            return res.status(401).json({ message: 'Invalid credentials' });
+        }
+
+        res.json({ message: 'Credentials are valid' });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'An error occurred' });
+    }
+}
 
 
 

@@ -4,6 +4,8 @@ import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { baseURL } from "../util/constants";
 
 
 const Login = () => {
@@ -28,20 +30,37 @@ const Login = () => {
         password: "Admin@123",
 
     };
-    const handleLogin = (values) => {
-        if (values.email === "admin@gmail.com" && values.password === "Admin@123") {
-            navigate('/admin');
-            console.log('Login Successful!');
+    const handleLogin = async (values) => {
+        try {
+            const response = await axios.post(`${baseURL}/credentials`, {
+                email: values.email,
+                password: values.password
+            });
+            if (response.data.message === 'Credentials are valid') {
+                localStorage.setItem('email', values.email);
+                localStorage.setItem('password', values.password);
+                navigate('/admin');
+                console.log('Login Successful!');
+            } else {
+                console.log('Invalid credentials');
+            }
+
+        } catch (error) {
+            console.log("An error Occured", error.response)
         }
-        else if (values.password !== "Admin@123") {
-            console.log('Invalid password');
-        }
-        else if (values.email !== "admin@gmail.com") {
-            console.log('Invalid Email');
-        }
-        else {
-            console.log("Invalid Email and Password!!")
-        }
+        // if (values.email === "admin@gmail.com" && values.password === "Admin@123") {
+        //     navigate('/admin');
+        //     console.log('Login Successful!');
+        // }
+        // else if (values.password !== "Admin@123") {
+        //     console.log('Invalid password');
+        // }
+        // else if (values.email !== "admin@gmail.com") {
+        //     console.log('Invalid Email');
+        // }
+        // else {
+        //     console.log("Invalid Email and Password!!")
+        // }
     };
 
 
