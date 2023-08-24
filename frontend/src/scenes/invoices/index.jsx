@@ -6,6 +6,8 @@ import Header from "../../components/Header";
 import { useEffect, useState } from "react";
 import { baseURL } from "../util/constants";
 import axios from "axios"
+import UpdateButton from "../../components/UpdateButton";
+import DeleteButton from "../../components/DeleteButton";
 
 const Invoices = () => {
   const theme = useTheme();
@@ -60,6 +62,20 @@ const Invoices = () => {
       headerName: "Date",
       flex: 1,
     },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 1,
+      renderCell: ({ row }) => (
+        <Box
+          display="flex">
+          <UpdateButton id={row._id} data={row} />
+          <DeleteButton id={row._id} />
+        </Box>
+
+
+      )
+    },
   ];
 
   return (
@@ -94,7 +110,7 @@ const Invoices = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={get_user} columns={columns} getRowId={(row) => row._id} />
+        <DataGrid rows={get_user} columns={columns} getRowId={(row) => row._id} />
       </Box>
     </Box>
   );

@@ -7,6 +7,8 @@ import { useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 import { baseURL } from "../util/constants";
 import axios from "axios"
+import UpdateButton from "../../components/UpdateButton";
+import DeleteButton from "../../components/DeleteButton";
 
 const Contacts = () => {
   const theme = useTheme();
@@ -69,6 +71,20 @@ const Contacts = () => {
       field: "zipCode",
       headerName: "Zip Code",
       flex: 1,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 1,
+      renderCell: ({ row }) => (
+        <Box
+          display="flex">
+          <UpdateButton id={row._id} data={row} />
+          <DeleteButton id={row._id} />
+        </Box>
+
+
+      )
     },
   ];
 

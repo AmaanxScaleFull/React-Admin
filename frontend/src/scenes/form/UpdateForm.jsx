@@ -25,11 +25,12 @@ const UpdateForm = () => {
     const [zipCode, setZipcode] = useState(data.zipCode);
     const [registrarId, setRegistrarid] = useState(data.registrarId);
     const [cost, setCost] = useState(data.cost);
+    const [password, setPassword] = useState(data.password);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const formData = { name, email, age, phone, city, address, access, date, zipCode, registrarId, cost };
+        const formData = { name, email, age, phone, city, address, access, date, zipCode, registrarId, cost, password };
 
         try {
             const response = await axios.put(`${baseURL}/update/${data._id}`, formData);
@@ -170,6 +171,16 @@ const UpdateForm = () => {
                         onChange={(e) => setAccess(e.target.value)}
                         value={access}
                         name="access"
+                        sx={{ gridColumn: "span 1" }}
+                    />
+                    <TextField
+                        fullWidth
+                        variant="filled"
+                        type="text"
+                        label="Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        value={password}
+                        name="password"
                         sx={{ gridColumn: "span 1" }}
                     />
                 </Box>
